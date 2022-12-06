@@ -24,6 +24,19 @@ def load_data(load_file):
     return student_list
 
 
+def binary_search(student_list, students_to_find):
+    if student_list == []:
+        return None
+    middle_location = len(student_list) // 2
+    middle_student = student_list[middle_location]
+    if middle_student.name == students_to_find:
+        return middle_student
+    if students_to_find < middle_student.name:
+        return binary_search(student_list[:middle_location-1], students_to_find)
+    else:
+        return binary_search(student_list[middle_location+1:], students_to_find)
+
+
 def get_key(student_to_sort):
     return student_to_sort.GPA
 
@@ -31,8 +44,11 @@ def get_key(student_to_sort):
 def main():
     data = load_data("students.txt")
     data.sort(key=get_key)
-    for student in data:
-        print(student)
+    student_name = input("who shall we look for")
+    result = binary_search(data, student_name)
+    print(result)
+    #for student in data:
+    #print(student)
 
 
 main()
