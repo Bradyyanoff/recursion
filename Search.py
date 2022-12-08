@@ -51,4 +51,56 @@ def main():
     #print(student)
 
 
-main()
+def add_it_up(student_list):
+    sum = 0
+    for student in student_list:
+        this_student_credits = student.credits
+        sum = sum + this_student_credits
+    return sum
+
+
+def add_it_with_recursion(student_list):
+    if student_list == []:
+        return 0
+    current_student = student_list[0]
+    return current_student.credits + add_it_with_recursion(student_list[1:])
+
+
+def find_average_gpa(student_list):
+    total_gpa = 0
+    numbers_of_students = len(student_list)
+    for student in student_list:
+        current_student_GPA = student.GPA
+        total_gpa += current_student_GPA
+    return total_gpa/numbers_of_students
+
+
+def find_median(student_list):
+    if len(student_list) == 1:
+        return student_list[0]
+    if len(student_list) == 2:
+        student1 = student_list[0]
+        student2 = student_list[1]
+        return (student1.credits + student2.credits)/2
+    return find_median(student_list[1:-1])
+
+
+data = load_data("students.txt")
+#sort later
+data.sort(key=get_key)
+result = find_median(data)
+print(f"the student with the median credits was {result}")
+#data = load_data("students.txt")
+#result = find_average_gpa(data)
+#print(f"the average gpa was {result}")
+
+
+
+#data = load_data("students.txt")
+#result = add_it_up(data)
+#result2 = add_it_with_recursion(data)
+#print(f"Those students took {result} credit so far")
+#print(f"and calculated with recursion we get {result2}")
+
+
+#main()
